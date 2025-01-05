@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+ 
+  <title>Frontend Mentor | Intro section with dropdown navigation</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Epilogue;
+      font-size: 18px;
+      font-weight: 500, 700;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+
+    /* Navigation Styles */
+    nav {
+      padding: 20px 3%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      flex-shrink: 0;
+      margin-right: 40px;
+      padding-left: 0px;
+      padding-top: 0.7%;
+    }
+
+    .hub {
+      display: flex;
+      list-style: none;
+      align-items: center;
+      flex-grow: 1;
+      gap: 30px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: hsl(0, 0%, 45%);
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: hsl(0, 0%, 8%);
+    }
+
+    .border {
+      border: 1px solid hsl(0, 0%, 45%);
+      padding: 8px 20px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .border:hover {
+      border-color: hsl(0, 0%, 8%);
+    }
+
+    /* Dropdown Styles */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: hsl(0, 0%, 98%);
+      box-shadow: 0 4px 12px hsl(0, 0%, 8%);
+      padding: 1rem;
+      border-radius: 10px;
+      min-width: 150px;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-menu a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px;
+    }
+
+    /* Main Content Styles */
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding-top: 30px;
+      padding-left: 10%;
+      display: flex;
+      align-items: center;
+      gap: 120px;
+    }
+
+    .content {
+      flex: 1;
+      max-width: 600px;
+      padding-top: 75px;
+    }
+
+    .content h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+     line-height: 1.1;
+      margin-bottom: 30px;
+    }
+
+    .content p {
+      color: hsl(0, 0%, 41%);
+      margin-bottom: 40px;
+      font-size: 18px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: hsl(0, 0%, 8%);
+      color: hsl(0, 0%, 98%);
+      padding: 15px 30px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: transparent;
+      color: hsl(0, 0%, 8%);
+      border: 1px solid hsl(0, 0%, 8%);
+    }
+
+    .image1 {
+      flex: 1;
+      max-width: 500px;
+    }
+
+    .desktop-image {
+      width: 70%;
+      min-width: 375px;
+      height: auto;
+      display: block;
+    }
+
+    .mobile-image {
+      width: 100%;
+      height: 30%;
+      display: none;
+    }
+
+    .icons {
+      margin-top: 80px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .icons img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 1024px) {
+      .container {
+        flex-direction: column-reverse;
+        text-align: center;
+        padding: 0%; 
+      }
+
+      .content {
+        margin-top: 1px;
+      }
+      
+      .icons {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .hub, .nav-buttons {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 0;
+      }
+
+      .hub.active, .nav-buttons.active {
+        display: flex;
+      }
+      .container {
+        padding: 0%;
+        margin: 0%;
+      }
+
+      .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        padding-left: 20px;
+      }
+
+      nav {
+        flex-wrap: wrap;
+      }
+
+      .content h1 {
+        font-size: 2.5rem;
+        margin: 0%;
+        padding-top: 0%;
+      }
+
+      .content p br {
+        display: none;
+      }
+
+      .desktop-image {
+        display: none;
+      }
+
+      .mobile-image {
+        display: block;
+        padding-bottom: 0%;
+        margin-top: 0%;
+      }
+      
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo"><img src="images/logo.svg" alt="logo"></div>
+    <button class="menu-toggle">
+      <img src="images/icon-menu.svg" alt="menu">
+    </button>
+    <ul class="hub">
+      <div class="dropdown">
+        <li><a href="Features.html">Features <img src="images/icon-arrow-down.svg" alt=""></a></li>
+        <div class="dropdown-menu">
+          <a href=""><img src="images/icon-todo.svg" alt=""> To do list</a>
+          <a href=""><img src="images/icon-calendar.svg" alt="">Calendar</a>
+          <a href=""><img src="images/icon-reminders.svg" alt="">Reminders</a>
+          <a href=""><img src="images/icon-planning.svg" alt="">Planning</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <li><a href="Company.html">Company <img src="images/icon-arrow-down.svg" alt=""></a></li>
+        <div class="dropdown-menu">
+          <a href="">History</a>
+          <a href="">Our Team</a>
+          <a href="">Blog</a>
+        </div>
+      </div>
+      <li><a href="Careers.html">Careers</a></li>
+      <li><a href="About.html">About</a></li>
+    </ul>
+    <div class="nav-buttons">
+      <a href="Login.html">Login</a>
+      <a href="Register.html" class="border">Register</a>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="content">
+      <h1>Make<br> remote work</h1>
+      <p>
+        Get your team in sync, no matter your location. <br> Streamline processes,
+        create team rituals, and<br> watch productivity soar.
+      </p>
+      <a href="#" class="btn">Learn more</a>
+      <div class="icons">
+        <img src="images/client-databiz.svg" alt="databiz">
+        <img src="images/client-audiophile.svg" alt="audiophile">
+        <img src="images/client-meet.svg" alt="meet">
+        <img src="images/client-maker.svg" alt="maker">
+      </div>
+    </div>
+    <div></div>
+    <div class="image1">
+      <img src="images/image-hero-desktop.png" alt="hero image" class="desktop-image">
+      <img src="images/image-hero-mobile.png" alt="hero image" class="mobile-image">
+    </div>
+  </div>
+  <script>
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+      document.querySelector('.hub').classList.toggle('active');
+      document.querySelector('.nav-buttons').classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
